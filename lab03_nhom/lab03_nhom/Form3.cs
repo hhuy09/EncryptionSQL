@@ -71,14 +71,19 @@ namespace lab03_nhom
                 string sqlexec = "EXEC SP_UPDATE_SINHVIEN N'" + mssv + "', N'" + textBox1.Text + "','" + dateTimePicker1.Text + "', N'" + textBox2.Text + "', N'" + comboBox1.Text + "',N'" + manv + "'";
                 SqlCommand cmd = new SqlCommand(sqlexec, con);
                 cmd.ExecuteNonQuery();
+                MessageBox.Show("Cập nhật thông tin thành công.");
+                con.Close();
+                this.Close();
             }
             catch(SqlException error)
             {
                 string errorStr = error.ToString();
                 string[] arrStr0 = errorStr.Split(':');
                 string[] arrStr = arrStr0[1].Split('\n');
-                MessageBox.Show(arrStr[0].ToString());
+                MessageBox.Show(arrStr[0].ToString()+"\nCập nhật thông tin không thành công.");
             }
         }
+
+
     }
 }

@@ -63,6 +63,8 @@ namespace lab03_nhom
                 dataGridView1.DataSource = dt;
                 dataGridView1.Columns["SOTC"].Width = 50;
                 dataGridView1.Columns["TENHP"].Width = 275;
+                mahp = dataGridView1.Rows[0].Cells[0].Value.ToString();
+
             }
             catch(SqlException error)
             {
@@ -121,8 +123,9 @@ namespace lab03_nhom
                 string errorStr = error.ToString();
                 string[] arrStr0 = errorStr.Split(':');
                 string[] arrStr = arrStr0[1].Split('\n');
-                MessageBox.Show(arrStr[0].ToString());
+                MessageBox.Show(arrStr[0].ToString() +"\nCập nhật điểm thi thành công.");
             }
+            textBox1.Text = "0.0";
         }
     }
 }
