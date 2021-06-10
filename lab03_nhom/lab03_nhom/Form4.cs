@@ -104,28 +104,87 @@ namespace lab03_nhom
         {
             try
             {
-                string sqlexec = "EXEC SP_UPDATE_BANGDIEM N'" + mssv + "', '" + mahp + "', '" + textBox1.Text + "', N'" + manv + "', '" + pass + "'";
+                SqlCommand cmd1 = new SqlCommand("SP_NV_PUBKEY", con);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                SqlParameter pMANV = new SqlParameter("@MANV", SqlDbType.NVarChar, 20);
+                SqlParameter pPUBKEY = new SqlParameter("@PUBKEY", SqlDbType.VarChar, 1000000000);
+                pMANV.Value = manv;
+                pPUBKEY.Direction = ParameterDirection.Output;
+                cmd1.Parameters.Add(pMANV);
+                cmd1.Parameters.Add(pPUBKEY);
+                cmd1.ExecuteNonQuery();
+
+                string pubkey = (string)pPUBKEY.Value;
+                string diem = "0x" + RSAAlgorithm.Base64ToHex(RSAAlgorithm.Encrypt(textBox1.Text, pubkey));
+
+                string sqlexec = "EXEC SP_UPDATE_BANGDIEM_CLIENT N'" + mssv + "', '" + mahp + "', '" + diem + "'";
                 SqlCommand cmd = new SqlCommand(sqlexec, con);
                 cmd.ExecuteNonQuery();
 
-                string sqlexec1 = "EXEC SP_SEL_BANGDIEM '" + mssv + "'" + ", N'" + manv + "', '" + pass + "'";
-                SqlCommand cmd1 = new SqlCommand(sqlexec1, con);
-                cmd1.ExecuteNonQuery();
-                SqlDataAdapter da = new SqlDataAdapter(cmd1);
+                string sqlexec2 = "EXEC SP_SEL_BANGDIEM_CLIENT '" + mssv + "'";
+                SqlCommand cmd2 = new SqlCommand(sqlexec2, con);
+                cmd2.ExecuteNonQuery();
+                SqlDataAdapter da = new SqlDataAdapter(cmd2);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dataGridView1.DataSource = dt;
                 dataGridView1.Columns["SOTC"].Width = 50;
                 dataGridView1.Columns["TENHP"].Width = 275;
+                MessageBox.Show("Cập nhật điểm thi thành công");
+
             }
             catch(SqlException error)
             {
                 string errorStr = error.ToString();
                 string[] arrStr0 = errorStr.Split(':');
                 string[] arrStr = arrStr0[1].Split('\n');
-                MessageBox.Show(arrStr[0].ToString() +"\nCập nhật điểm thi thành công.");
+                MessageBox.Show(arrStr[0].ToString() +"\nCập nhật điểm thi không thành công.");
             }
             textBox1.Text = "0.0";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int row = dataGridView1.Rows.Count - 1;
+
+            string prikey = "";
+
+            OpenFileDialog dlg = new OpenFileDialog();
+            string path = null;
+            dlg.Title = "Chọn privatekey";
+            DialogResult result = dlg.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                path = dlg.FileName;
+            }
+
+            try
+            {
+                prikey = System.IO.File.ReadAllText(path);
+            }
+            catch
+            {
+
+            }
+
+            for (int r = 0; r < row; r++)
+            {
+                string lg = dataGridView1.Rows[r].Cells[3].Value.ToString();
+
+                try
+                {
+                    if (lg.Length > 0)
+                    {
+                        lg = lg.Substring(2);
+                        lg = RSAAlgorithm.Decrypt(RSAAlgorithm.HexToBase64(lg), prikey);
+                        dataGridView1.Rows[r].Cells[3].Value = lg;
+                    }
+                }
+                catch
+                {
+                    dataGridView1.Rows[r].Cells[3].Value = null;
+                }
+            }
         }
     }
 }

@@ -67,7 +67,20 @@ namespace lab03_nhom
         {
             try
             {
-                string sqlexec = "EXEC SP_UPDATE_BANGDIEM N'" + mssv + "', '" + mahp + "', '" + textBox1.Text + "', N'" + manv + "', '" + pass + "'";
+                SqlCommand cmd1 = new SqlCommand("SP_NV_PUBKEY", con);
+                cmd1.CommandType = CommandType.StoredProcedure;
+                SqlParameter pMANV = new SqlParameter("@MANV", SqlDbType.NVarChar, 20);
+                SqlParameter pPUBKEY = new SqlParameter("@PUBKEY", SqlDbType.VarChar, 1000000000);
+                pMANV.Value = manv;
+                pPUBKEY.Direction = ParameterDirection.Output;
+                cmd1.Parameters.Add(pMANV);
+                cmd1.Parameters.Add(pPUBKEY);
+                cmd1.ExecuteNonQuery();
+
+                string pubkey = (string)pPUBKEY.Value;
+                string diem = "0x" + RSAAlgorithm.Base64ToHex(RSAAlgorithm.Encrypt(textBox1.Text, pubkey));
+
+                string sqlexec = "EXEC SP_UPDATE_BANGDIEM_CLIENT N'" + mssv + "', '" + mahp + "', '" + diem + "'";
                 SqlCommand cmd = new SqlCommand(sqlexec, con);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cập nhật điểm thành công.");

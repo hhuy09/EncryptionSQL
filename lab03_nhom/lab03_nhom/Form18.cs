@@ -9,64 +9,56 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
 
 namespace lab03_nhom
 {
-    public partial class Form1 : Form
+    public partial class Form18 : Form
     {
-        string connectString;
+        public string connectString;
+        public string tenDN;
+        public string pass;
+        public string manv;
+        public string hoten;
+        public string msnv;
         SqlConnection con;
-        int num;
-        public Form1()
+        public Form18()
         {
             InitializeComponent();
         }
 
-        private void Login_Load(object sender, EventArgs e)
+        private void Form18_Load(object sender, EventArgs e)
         {
             connectString = "Data Source=NDHHUY;Initial Catalog=QLSVNhom;Integrated Security=True";
             con = new SqlConnection(connectString);
             con.Open();
 
+            label1.Text = msnv;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             con.Close();
-            Application.Exit();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text;
-            string password = textBox2.Text;
-            string psha1 = SimpleHash.HexHash(SHA1.Create(), password);
-            psha1 = "0x" + psha1;
-
             try
             {
-                string sqlexeclogin = "EXEC SP_LOGIN_NHANVIEN_CLIENT N'" + username + "', '" + psha1 + "'";
-                SqlCommand cmd = new SqlCommand(sqlexeclogin, con);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Đăng nhập thành công");
-                Form5 f5 = new Form5();
-                f5.connectString = connectString;
-                f5.tenDN = username;
-                f5.pass = textBox2.Text;
-                this.Hide();
-                f5.Show();
-
+                string sqlexec1 = "EXEC SP_DEL_NHANVIEN '" + msnv + "'";
+                SqlCommand cmd1 = new SqlCommand(sqlexec1, con);
+                cmd1.ExecuteNonQuery();
+                MessageBox.Show("Xóa nhân viên thành công.");
+                con.Close();
+                this.Close();
             }
             catch (SqlException error)
             {
                 string errorStr = error.ToString();
                 string[] arrStr0 = errorStr.Split(':');
                 string[] arrStr = arrStr0[1].Split('\n');
-                MessageBox.Show(arrStr[0].ToString());
-
+                MessageBox.Show(arrStr[0].ToString() + "\nXóa nhân viên không thành công.");
             }
-            textBox2.Text = null;
-    }
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace lab03_nhom
 {
@@ -39,9 +40,13 @@ namespace lab03_nhom
         {
             string mssv = textBox1.Text;
             string htsv = textBox3.Text;
-            string nsinh = dateTimePicker1.Value.ToString();
+            string nsinh = dateTimePicker1.Text;
             string diachi = textBox2.Text;
             string lop = comboBox1.Text;
+            string tendn = textBox4.Text;
+            string mk = textBox5.Text;
+            mk = "0x" + SimpleHash.HexHash(SHA1.Create(), mk);
+
 
             try
             {
@@ -61,7 +66,7 @@ namespace lab03_nhom
                 SqlCommand cmd2 = new SqlCommand(sqlexec2, con);
                 cmd2.ExecuteNonQuery();
 
-                string sqlexec1 = "EXEC SP_INS_SINHVIEN '" + mssv + "', N'" + htsv + "', '" + nsinh + "', N'" + diachi + "', '" + malop + "', '" + mssv + "', '" + mssv + "'";
+                string sqlexec1 = "EXEC SP_INS_SINHVIEN_CLIENT '" + mssv + "', N'" + htsv + "', '" + nsinh + "', N'" + diachi + "', '" + malop + "', '" + tendn + "', '" + mk + "'";
                 SqlCommand cmd1 = new SqlCommand(sqlexec1, con);
                 cmd1.ExecuteNonQuery();
                 MessageBox.Show("Thêm sinh viên thành công.");

@@ -50,6 +50,10 @@ namespace lab03_nhom
             this.lOPTableAdapter = new lab03_nhom.QLSVNhomDataSetTableAdapters.LOPTableAdapter();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.qLSVNhomDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).BeginInit();
@@ -59,7 +63,7 @@ namespace lab03_nhom
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(184, 62);
+            this.label2.Location = new System.Drawing.Point(194, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 19);
             this.label2.TabIndex = 10;
@@ -67,6 +71,10 @@ namespace lab03_nhom
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.comboBox1);
@@ -98,7 +106,7 @@ namespace lab03_nhom
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(93, 62);
+            this.label1.Location = new System.Drawing.Point(103, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 19);
             this.label1.TabIndex = 16;
@@ -112,7 +120,7 @@ namespace lab03_nhom
             "Công Nghệ Hóa Học",
             "Công Nghệ Sinh Học",
             "Công Nghệ Thông Tin"});
-            this.comboBox1.Location = new System.Drawing.Point(178, 197);
+            this.comboBox1.Location = new System.Drawing.Point(188, 180);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(294, 27);
             this.comboBox1.TabIndex = 15;
@@ -121,7 +129,7 @@ namespace lab03_nhom
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(178, 127);
+            this.dateTimePicker1.Location = new System.Drawing.Point(188, 110);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(294, 26);
             this.dateTimePicker1.TabIndex = 14;
@@ -129,7 +137,7 @@ namespace lab03_nhom
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(178, 161);
+            this.textBox2.Location = new System.Drawing.Point(188, 144);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(294, 26);
             this.textBox2.TabIndex = 13;
@@ -137,7 +145,7 @@ namespace lab03_nhom
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(178, 94);
+            this.textBox1.Location = new System.Drawing.Point(188, 77);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(294, 26);
             this.textBox1.TabIndex = 12;
@@ -146,7 +154,7 @@ namespace lab03_nhom
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(93, 200);
+            this.label6.Location = new System.Drawing.Point(103, 183);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 19);
             this.label6.TabIndex = 11;
@@ -156,7 +164,7 @@ namespace lab03_nhom
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(93, 130);
+            this.label5.Location = new System.Drawing.Point(103, 113);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(81, 19);
             this.label5.TabIndex = 10;
@@ -166,7 +174,7 @@ namespace lab03_nhom
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(93, 164);
+            this.label4.Location = new System.Drawing.Point(103, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 19);
             this.label4.TabIndex = 9;
@@ -176,7 +184,7 @@ namespace lab03_nhom
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(93, 97);
+            this.label3.Location = new System.Drawing.Point(103, 80);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(79, 19);
             this.label3.TabIndex = 8;
@@ -238,6 +246,43 @@ namespace lab03_nhom
             this.label13.TabIndex = 25;
             this.label13.Text = "HotenNV";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(103, 218);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 19);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "Username:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(103, 255);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 19);
+            this.label8.TabIndex = 30;
+            this.label8.Text = "Mật khẩu:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.Location = new System.Drawing.Point(188, 252);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.PasswordChar = '•';
+            this.textBox4.Size = new System.Drawing.Size(294, 26);
+            this.textBox4.TabIndex = 31;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new System.Drawing.Point(188, 215);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(294, 26);
+            this.textBox3.TabIndex = 29;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,5 +326,9 @@ namespace lab03_nhom
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

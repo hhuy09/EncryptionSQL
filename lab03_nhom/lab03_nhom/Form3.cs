@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security.Cryptography; 
 
 namespace lab03_nhom
 {
@@ -33,28 +34,32 @@ namespace lab03_nhom
 
             label2.Text = mssv;
 
-            SqlCommand cmd = new SqlCommand("SP_SEL1_SINHVIEN", con);
+            SqlCommand cmd = new SqlCommand("SP_SEL1_SINHVIEN_CLIENT", con);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter pMASV = new SqlParameter("@MASV", SqlDbType.NVarChar, 20);
             SqlParameter pHOTEN = new SqlParameter("@HOTEN", SqlDbType.NVarChar, 100);
             SqlParameter pNS = new SqlParameter("@NGAYSINH", SqlDbType.DateTime);
             SqlParameter pDC = new SqlParameter("@DIACHI", SqlDbType.NVarChar, 200);
             SqlParameter pTENLOP = new SqlParameter("@TENLOP", SqlDbType.NVarChar, 100);
+            SqlParameter pTENDN = new SqlParameter("@TENDN", SqlDbType.NVarChar, 20);
             pMASV.Value = mssv;
             pHOTEN.Direction = ParameterDirection.Output;
             pNS.Direction = ParameterDirection.Output;
             pDC.Direction = ParameterDirection.Output;
             pTENLOP.Direction = ParameterDirection.Output;
+            pTENDN.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(pMASV);
             cmd.Parameters.Add(pHOTEN);
             cmd.Parameters.Add(pNS);
             cmd.Parameters.Add(pDC);
             cmd.Parameters.Add(pTENLOP);
+            cmd.Parameters.Add(pTENDN);
             cmd.ExecuteNonQuery();
             textBox1.Text = (string)pHOTEN.Value;
             dateTimePicker1.Value = DateTime.Parse(pNS.Value.ToString());
             textBox2.Text = (string)pDC.Value;
             comboBox1.Text = (string)pTENLOP.Value;
+            textBox3.Text = (string)pTENDN.Value;
             cmd.Parameters.Clear();
         }
 
@@ -68,7 +73,9 @@ namespace lab03_nhom
         {
             try
             {
-                string sqlexec = "EXEC SP_UPDATE_SINHVIEN N'" + mssv + "', N'" + textBox1.Text + "','" + dateTimePicker1.Text + "', N'" + textBox2.Text + "', N'" + comboBox1.Text + "',N'" + manv + "'";
+                string mk = textBox4.Text;
+                mk = "0x" + SimpleHash.HexHash(SHA1.Create(), mk);
+                string sqlexec = "EXEC SP_UPDATE_SINHVIEN_CLIENT N'" + mssv + "', N'" + textBox1.Text + "','" + dateTimePicker1.Text + "', N'" + textBox2.Text + "', N'" + comboBox1.Text + "', N'" + textBox3.Text + "', '" + mk + "', N'" + manv + "'";
                 SqlCommand cmd = new SqlCommand(sqlexec, con);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Cập nhật thông tin thành công.");

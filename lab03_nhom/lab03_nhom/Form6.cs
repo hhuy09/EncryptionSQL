@@ -35,7 +35,7 @@ namespace lab03_nhom
             label1.Text = hoten;
             label2.Text = manv;
 
-            string sqlexec1 = "EXEC SP_SEL_SINHVIEN_NHANVIEN N'" + manv + "'";
+            string sqlexec1 = "EXEC SP_SEL_SINHVIEN_NHANVIEN_CLIENT N'" + manv + "'";
             SqlCommand cmd1 = new SqlCommand(sqlexec1, con);
             cmd1.ExecuteNonQuery();
             SqlDataAdapter da = new SqlDataAdapter(cmd1);
@@ -45,7 +45,12 @@ namespace lab03_nhom
             dataGridView1.Columns["TENLOP"].Width = 150;
             dataGridView1.Columns["HOTEN"].Width = 150;
 
-            mssv = dataGridView1.Rows[0].Cells[0].Value.ToString();
+            if(dataGridView1.Rows.Count > 1)
+            {
+                mssv = dataGridView1.Rows[0].Cells[0].Value.ToString();
+            }
+
+            
 
             int count = dataGridView1.Rows.Count - 1;
             label5.Text = count.ToString();
